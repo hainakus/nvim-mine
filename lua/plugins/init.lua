@@ -21,7 +21,7 @@ return {
   end,
   event = 'VeryLazy',
   opts = true,
-}
+},
 {
   "stsewd/spotify.nvim",
   build = ":UpdateRemotePlugins",
