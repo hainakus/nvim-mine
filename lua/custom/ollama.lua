@@ -12,7 +12,7 @@ local function ask_ollama()
         end
 	local ip = "127.0.0.1"  -- Replace with your Ollama server IP
 	local port = "11434"         -- Make sure this is correct
-    	local model = "qwen2.5-coder:latest" -- The model you want to use
+    	local model = "deepseek-r1" -- The model you want to use
 
     	local url = "http://" .. ip .. ":" .. port .. "/api/generate"
     	local cmd = 'curl -s -X POST "' .. url .. '" -H "Content-Type: application/json" -d \'{"model": "'.. model ..'", "prompt": "' .. question .. '"}\''
@@ -26,6 +26,20 @@ local function ask_ollama()
         local result = handle:read("*a")
         handle:close()
 
+         -- Try to parse the result as JSON
+        local success, parsed_result = pcall(vim.fn.json_decode, result)
+        if success then
+            -- Transform the JSON into human-readable format
+            local human_readable = ""
+            for key, value in pairs(parsed_result) do
+                human_readable = human_readable .. key .. ": " .. tostring(value) .. "\n"
+            end
+            result = human_readable
+        else
+            print("Failed to parse JSON response.")
+        end
+
+        -- Create a Telescope picker to display the result
         pickers.new({}, {
             prompt_title = "Ollama Response",
             finder = finders.new_table({ results = { result } }),
