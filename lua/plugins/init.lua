@@ -86,7 +86,7 @@ return {
     animate_spinner = true,  -- set this to false to disable spinner animation
     model = "qwen2.5-coder",
     model_code = "qwen2.5-coder",
-    url = "http://192.168.1.190:11434",
+    url = "http://192.168.1.190:11464",
     serve = {
       on_start = false,
       command = "ollama",

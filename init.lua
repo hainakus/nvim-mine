@@ -24,7 +24,8 @@ require("lazy").setup({
 
   { import = "plugins" },
 }, lazy_config)
-
+require("custom.ollama")
+vim.api.nvim_set_keymap("n", "<leader>oa", ":OllamaTelescope<CR>", { noremap = true, silent = true })
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
